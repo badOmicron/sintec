@@ -49,6 +49,22 @@
                             <goal>exec</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>copy js</id>
+                        <configuration>
+                            <workingDirectory>./src</workingDirectory>
+                            <executable>cp</executable>
+                            <arguments>
+                                <argument>-R</argument>
+                                <argument>dist/.</argument>
+                                <argument>../../server/src/main/resources/static/</argument>
+                            </arguments>
+                        </configuration>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
 
