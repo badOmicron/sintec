@@ -27,7 +27,11 @@ public interface ICatalogosService {
 
     List<SubClase> findAllSubClases();
 
+    List<SubClase> findAllSubClasesByClase();
+
     List<Departamento> findAllDepartamentos();
 
     List<SubDepartamento> findAllSubDepartamentos();
+
+    List<SubDepartamento> findAllSubDepartamentosByDepto(String departamento);
 }

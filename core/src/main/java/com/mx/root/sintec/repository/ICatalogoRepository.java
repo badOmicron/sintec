@@ -9,8 +9,10 @@ package com.mx.root.sintec.repository;
 
 import java.util.List;
 
+import org.hibernate.annotations.Parameter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.mx.root.sintec.model.*;
 
@@ -45,5 +47,13 @@ public interface ICatalogoRepository extends JpaRepository<RelJerarquiaProductos
      */
     @Query(value = "select distinct new com.mx.root.sintec.model.SubDepartamento(s.idSubdepartamento,s.subdepartamento) from RelJerarquiaProductosEntity s")
     List<SubDepartamento> findAllSubDepartamentos();
+
+    /**
+     * Obtiene todos los {@link SubDepartamento}s que existen en la tabla  {@link RelJerarquiaProductosEntity}.
+     * Se puede observar que en el  {@link Query} se construye un objeto de tipo {@link SubDepartamento}, esto es algo que nos permite hacer JPA con Spring y Hibernate.
+     * @return Lista de sub departamentos de la tabla {@link RelJerarquiaProductosEntity} resultantes de la consulta.
+     */
+    @Query(value = "select distinct new com.mx.root.sintec.model.SubDepartamento(s.idSubdepartamento,s.subdepartamento) from RelJerarquiaProductosEntity s where s.departamento= :departamento")
+    List<SubDepartamento> findAllSubDepartamentosByDepartamento(@Param("departamento") String departamento);
 
 }

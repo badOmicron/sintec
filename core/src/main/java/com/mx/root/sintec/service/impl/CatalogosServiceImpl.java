@@ -47,6 +47,11 @@ public class CatalogosServiceImpl implements ICatalogosService {
     }
 
     @Override
+    public List<SubClase> findAllSubClasesByClase() {
+        return iRelJerarquiaProductosRepository.findDistinctBySubClase();
+    }
+
+    @Override
     public List<Departamento> findAllDepartamentos() {
         return iRelJerarquiaProductosRepository.findAllDepartamentos();
     }
@@ -54,6 +59,11 @@ public class CatalogosServiceImpl implements ICatalogosService {
     @Override
     public List<SubDepartamento> findAllSubDepartamentos() {
         return iRelJerarquiaProductosRepository.findAllSubDepartamentos();
+    }
+
+    @Override
+    public List<SubDepartamento> findAllSubDepartamentosByDepto(String departamento) {
+        return iRelJerarquiaProductosRepository.findAllSubDepartamentosByDepartamento(departamento);
     }
 
 
