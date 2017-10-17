@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:sqlserver://192.168.0.245:1433;database=Herramientas</property>
+        <property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+        <mapping class="com.mx.root.sintec.model.DatosEntity"/>
+
+        <mapping class="com.mx.root.sintec.model.TblDashboardVentasEntity"/>
+        <mapping class="com.mx.root.sintec.model.TblEvaluacionProveedoresEntity"/>
+
+        <mapping class="com.mx.root.sintec.model.TblPlaneacionCatalogoEntity"/>
+
+        <mapping class="com.mx.root.sintec.model.TblCompraOportunidadEntity"/>
+
+        <mapping class="com.mx.root.sintec.model.TblLogEntity"/>
+        <mapping class="com.mx.root.sintec.model.TblRylCadenaEntity"/>
+        <mapping class="com.mx.root.sintec.model.TblRylTiendaEntity"/>
+        <mapping class="com.mx.root.sintec.model.SellthroughEntity"/>
+        <mapping class="com.mx.root.sintec.model.HistoriaPlanAgregadoEntity"/>
+        <mapping class="com.mx.root.sintec.model.TblPlaneacionAgregadaEntity"/>
+        <mapping class="com.mx.root.sintec.model.TblPlaneacionSkuEntity"/>
+        <mapping class="com.mx.root.sintec.model.TblFullMargenEntity"/>
+        <mapping class="com.mx.root.sintec.model.TblFullPriceEntity"/>
+        <mapping class="com.mx.root.sintec.model.TblPolarizacionEntity"/>
+        <mapping class="com.mx.root.sintec.model2.RelJerarquiaProductosEntity"/>
+        <mapping class="com.mx.root.sintec.model2.RelProductosEntity"/>
+        <mapping class="com.mx.root.sintec.model2.RelProveedoresEntity"/>
+        <mapping class="com.mx.root.sintec.model2.RelTiendasEntity"/>
+        <mapping class="com.mx.root.sintec.model2.InvSkuSemanaTiendaEntity"/>
+        <mapping class="com.mx.root.sintec.model2.TblPolarizacionEntity"/>
+        <mapping class="com.mx.root.sintec.model2.VtaSkuSemanaTiendaEntity"/>
+        <mapping class="com.mx.root.sintec.model2.HistoriaPlanAgregadoEntity"/>
+        <mapping class="com.mx.root.sintec.model2.SellthroughEntity"/>
+        <mapping class="com.mx.root.sintec.model2.TblPlaneacionAgregadaEntity"/>
+        <mapping class="com.mx.root.sintec.model2.TblPlaneacionCatalogoEntity"/>
+        <mapping class="com.mx.root.sintec.model2.TblPlaneacionSkuEntity"/>
+        <mapping class="com.mx.root.sintec.model2.TblFullMargenEntity"/>
+        <mapping class="com.mx.root.sintec.model2.TblFullPriceEntity"/>
+        <!-- <property name="connection.username"/> -->
+        <!-- <property name="connection.password"/> -->
+
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hbm2ddl.auto">update</property> -->
+    </session-factory>
+</hibernate-configuration>
