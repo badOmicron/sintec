@@ -15,7 +15,6 @@
  * This description can span several lines and ends with a period.
  * - Management
  *
- * @requires javascriptlibrary.js
  * @class
  * @classdesc This is a description of the MyClass class.
  * @summary   A short description of the file.
@@ -32,5 +31,7 @@
 export class SellthroughFilter {
   public idDepartamento: number;
   public idSubdepartamento: number;
+  public fechaInicio: Date;
+  public fechaFin: Date;
 
 }

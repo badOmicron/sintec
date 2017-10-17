@@ -77,21 +77,5 @@ public interface IDesplazamientoInventarioRepository extends JpaRepository<Sellt
      */
     List<SellthroughEntity> findByIdDepartamentoAndIdSubdepartamento(int idDpto, int idSubDpto, Pageable pageRequest);
 
-    /**
-     * Obtiene todos los {@link Departamento}s que existen en la tabla  {@link SellthroughEntity}.
-     * Se puede observar que en el  {@link Query} se construye un objeto de tipo {@link Departamento}, esto es algo que nos permite hacer JPA con Spring y Hibernate.
-     * @return Lista de departamentos de la tabla {@link SellthroughEntity} resultantes de la consulta.
-     */
-    @Query(value = "select distinct new com.mx.root.sintec.model.Departamento(s.idDepartamento,s.departamento) from SellthroughEntity s")
-    List<Departamento> findAllDepartamentos();
-
-    /**
-     * Obtiene todos los {@link SubDepartamento}s que existen en la tabla  {@link SellthroughEntity}.
-     * Se puede observar que en el  {@link Query} se construye un objeto de tipo {@link SubDepartamento}, esto es algo que nos permite hacer JPA con Spring y Hibernate.
-     * @return Lista de sub departamentos de la tabla {@link SellthroughEntity} resultantes de la consulta.
-     */
-    @Query(value = "select distinct new com.mx.root.sintec.model.SubDepartamento(s.idSubdepartamento,s.subdepartamento) from SellthroughEntity s")
-    List<SubDepartamento> findAllSubDepartamentos();
-
 
 }

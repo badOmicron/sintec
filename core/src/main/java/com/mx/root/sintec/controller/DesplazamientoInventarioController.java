@@ -94,39 +94,5 @@ public class DesplazamientoInventarioController {
         }
     }
 
-    /**
-     * Enpoint para obtener todos los departamentos.
-     * @return Una respuesa HTTP.
-     * @see ResponseEntity
-     */
-    @GetMapping("/departamentos")
-    ResponseEntity getDptos() {
-        LOGGER.info("getDptos: ");
-        try {
-            final List<Departamento> departamentos = desplazamientoInventarioService.findAllDeptos();
-            return ResponseEntity.ok(departamentos);
-        } catch (final Exception e) {
-            LOGGER.error(" message", e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
-    }
 
-    /**
-     * Enpoint para obtener todos los sub departamentos.
-     * @return Una respuesa HTTP.
-     * @see ResponseEntity
-     */
-    @GetMapping("/subdepartamentos")
-    ResponseEntity getSubDptos() {
-        LOGGER.info("getDptos: ");
-        try {
-            final List<SubDepartamento> subDepartamentos = desplazamientoInventarioService.findAllSubDeptos();
-            return ResponseEntity.ok(subDepartamentos);
-        } catch (final Exception e) {
-            LOGGER.error(" message", e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
-    }
 }

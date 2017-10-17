@@ -12,6 +12,10 @@ import {Departamento} from "../model/Departamento";
 import {SubDepartamento} from "../model/SubDepartamento";
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SellthroughFilter} from "../model/desplazamiento-inventario/SellthroughFilter";
+import {DatePipe} from "@angular/common";
+
+
+const now = new Date();
 
 /**
  * Componente base para el reporte Desplazamiento de Inventarios.
@@ -29,6 +33,8 @@ export class ReporteDesplazamientoInventarioComponent implements OnInit {
   _validFilter: boolean = false; // variable para validar si el filtro esta completo.
   _canGenerateReport = false; // variable que indica si es posible disparar el método que generá el reporte
   filterForm: FormGroup; // Formulario donde vienen todos los filtros.
+  fechaSelect: string;
+
 
   /**
    * Constructor del componente.
@@ -39,6 +45,8 @@ export class ReporteDesplazamientoInventarioComponent implements OnInit {
               private fb: FormBuilder// se inyecta el FormBuilder
   ) {
     console.log('ReporteDesplazamientoInventarioComponent Controller');
+    this.fechaSelect = new DatePipe('en-US').transform(new Date(), 'dd/MM/yyyy');
+    console.log(this.fechaSelect);
   }
 
   /**
@@ -59,7 +67,7 @@ export class ReporteDesplazamientoInventarioComponent implements OnInit {
    */
   buildForm(): void {
     console.log('-- construyendo formulario --');
-    // solo se construye el formulario y se crea un grupo de elementos que necesitan ser validados.
+// solo se construye el formulario y se crea un grupo de elementos que necesitan ser validados.
     this.filterForm = this.fb.group(
       {
         'departamentos': ['', [Validators.required]],
@@ -114,19 +122,29 @@ export class ReporteDesplazamientoInventarioComponent implements OnInit {
   setFilterDpto(idDpto: any): void {
     console.log('setFilterDpto');
     console.log(idDpto);
-    // Se le asigna el valor del id departamento al objeto que contiene todos los filtros.
+// Se le asigna el valor del id departamento al objeto que contiene todos los filtros.
     this._sellthroughFilter.idDepartamento = idDpto;
-    // se valida si los filtros estan completos.
+// se valida si los filtros estan completos.
     this.validateFilters();
   }
 
   setFilterSubDpto(idSubDpto: any): void {
     console.log('setFilterSubDpto');
     console.log(idSubDpto);
-    // Se le asigna el valor del id subdepartamento al objeto que contiene todos los filtros.
+// Se le asigna el valor del id subdepartamento al objeto que contiene todos los filtros.
     this._sellthroughFilter.idSubdepartamento = idSubDpto;
-    // se valida si los filtros estan completos.
+// se valida si los filtros estan completos.
     this.validateFilters();
+  }
+
+  setFechainicio(fechaInicio: any) {
+    console.log(fechaInicio);
+    this._sellthroughFilter.fechaInicio = new Date(fechaInicio);
+  }
+
+  setFechaFin(fechaFin: any) {
+    console.log(fechaFin);
+    this._sellthroughFilter.fechaFin = new Date(fechaFin);
   }
 
   /**

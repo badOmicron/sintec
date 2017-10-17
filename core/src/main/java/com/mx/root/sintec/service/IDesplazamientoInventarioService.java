@@ -59,16 +59,5 @@ public interface IDesplazamientoInventarioService {
      */
     List<SellthroughEntity> findByIdClaseAndAndDepartamentoAndSubdepartamento(int idDepartamento,
                                                                               int idSubDepartamento);
-
-    /**
-     * Obtiene todos los {@link Departamento}s que existen en la tabla  {@link SellthroughEntity}.
-     * @return Lista de departamentos de la tabla {@link SellthroughEntity} resultantes de la consulta.
-     */
-    List<Departamento> findAllDeptos();
-
-    /**
-     * Obtiene todos los {@link SubDepartamento}s que existen en la tabla  {@link SellthroughEntity}.
-     * @return Lista de sub departamentos de la tabla {@link SellthroughEntity} resultantes de la consulta.
-     */
-    List<SubDepartamento> findAllSubDeptos();
+    
 }

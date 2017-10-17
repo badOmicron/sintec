@@ -1,16 +1,14 @@
 /*
- *      File: Departamento.java
+ *      File: AbstractCatalogo.java
  *    Author: Orlando Ramos <orlando.ramos@root.com.mx>
- *      Date: Oct 15, 2017
+ *      Date: Oct 16, 2017
  * Copyright: Root Technologies, S.A. de C.V. 2017
  */
 
-package com.mx.root.sintec.model;
+package com.mx.root.sintec.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import com.mx.root.sintec.model.dto.AbstractCatalogo;
 
 /**
  *  TODO Descripciòn de la clase.
@@ -19,9 +17,9 @@ import com.mx.root.sintec.model.dto.AbstractCatalogo;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class Departamento extends AbstractCatalogo {
-    
-    public Departamento(int id, String descripcion) {
-        super(id, descripcion);
-    }
+@Data
+@AllArgsConstructor
+public class AbstractCatalogo {
+    int id;
+    String descripcion;
 }

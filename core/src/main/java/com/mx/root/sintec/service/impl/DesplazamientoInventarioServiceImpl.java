@@ -94,23 +94,4 @@ public class DesplazamientoInventarioServiceImpl implements IDesplazamientoInven
                                                                                                 idSubDepartamento);
     }
 
-    /**
-     * Obtiene todos los {@link Departamento}s que existen en la tabla  {@link SellthroughEntity}.
-     * @return Lista de departamentos de la tabla {@link SellthroughEntity} resultantes de la consulta.
-     */
-    @Override
-    public List<Departamento> findAllDeptos() {
-        LOGGER.info("findAllDeptos: ");
-        return desplazamientoInventarioRepository.findAllDepartamentos();
-    }
-
-    /**
-     * Obtiene todos los {@link SubDepartamento}s que existen en la tabla  {@link SellthroughEntity}.
-     * @return Lista de sub departamentos de la tabla {@link SellthroughEntity} resultantes de la consulta.
-     */
-    @Override
-    public List<SubDepartamento> findAllSubDeptos() {
-        LOGGER.info("findAllDeptos: ");
-        return desplazamientoInventarioRepository.findAllSubDepartamentos();
-    }
 }

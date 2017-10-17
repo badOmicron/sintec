@@ -10,6 +10,8 @@ package com.mx.root.sintec.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import com.mx.root.sintec.model.dto.AbstractCatalogo;
+
 /**
  *  TODO Descripciòn de la clase.
  *  Patron de diseño  implementado.
@@ -17,11 +19,9 @@ import lombok.Data;
  * @version 1.0.0
  * @since 1.0.0
  */
-@Data
-@AllArgsConstructor
-public class SubDepartamento {
+public class SubDepartamento extends AbstractCatalogo {
 
-    int id;
-    String descripcion;
-
+    public SubDepartamento(int id, String descripcion) {
+        super(id, descripcion);
+    }
 }

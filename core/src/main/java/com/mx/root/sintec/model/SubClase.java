@@ -1,14 +1,11 @@
 /*
- *      File: Departamento.java
+ *      File: SubClase.java
  *    Author: Orlando Ramos <orlando.ramos@root.com.mx>
- *      Date: Oct 15, 2017
+ *      Date: Oct 17, 2017
  * Copyright: Root Technologies, S.A. de C.V. 2017
  */
 
 package com.mx.root.sintec.model;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
 import com.mx.root.sintec.model.dto.AbstractCatalogo;
 
@@ -19,9 +16,9 @@ import com.mx.root.sintec.model.dto.AbstractCatalogo;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class Departamento extends AbstractCatalogo {
-    
-    public Departamento(int id, String descripcion) {
+public class SubClase extends AbstractCatalogo {
+
+    public SubClase(int id, String descripcion) {
         super(id, descripcion);
     }
 }

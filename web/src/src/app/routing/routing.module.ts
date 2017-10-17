@@ -27,7 +27,7 @@ const router: Routes = [
    */
   {path: '', redirectTo: 'reporte_one', pathMatch: 'full'},
   {path: 'reporte_one', component: LineChartDemoComponent},
-  {path: 'reporte_five', component: ReporteDesplazamientoInventarioComponent},
+  {path: 'desplazamiento_inventario', component: ReporteDesplazamientoInventarioComponent},
   {path: '**', component: PageNotFoundComponent, outlet: 'content'}
 ];
 

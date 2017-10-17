@@ -5,97 +5,132 @@
   ~ Copyright: Root Technologies, S.A. de C.V. 2017
   -->
 
-<div class="container">
-  <div class="row">
-    <div class="row container-fluid">
+<div class="container" style="padding-top: 5%">
 
+  <div class="row container-fluid">
+    <h3>Deplazamiento de inventarios.</h3>
+    <!--
+          Aqui empieza el formulario.
+
+          ¿Que significa cada cosa?
+
+          * [formGroup]="filterForm" => esto dice que en el archivo reporte-desplazamiento-inventario.component.ts
+          existe un objeto llamado filterForm y hace referencia a él.
+
+          * (ngSubmit)="onSubmit()" => Indica que cuando se presione el boton subbmit se ejecutara el método onSubmit()
+          que se encuentra dentro del archivo reporte-desplazamiento-inventario.component.ts
+    -->
+    <form [formGroup]="filterForm" (ngSubmit)="onSubmit()" class="form-inline"
+          style=" padding-bottom:2%; display:flex;flex-direction: row; justify-content: space-between; flex-grow: 7">
+      <div class="form-group">
+        <!--primer filtro -->
+        <label for="departamento"></label>
+        <!--    Este es un selector con algunas propiedades Angular.
+            #selectDpto => Se le asgina un Id al selector #selectDpto,
+            (change)="setFilterDpto(selectDpto.value) => Se pone un listener que dice que cuando el selector reciba un valor
+            será ejecutado el mètodo setFilterDpto y se le envía el valor indicado selectDpto.value-->
+        <select
+          id="departamento"
+          class="form-control"
+          #selectDpto (change)="setFilterDpto(selectDpto.value)"
+          required>
+          <!--Opción por default que indica el contenido del filtro-->
+          <option disabled selected>Departamentos</option>
+          <!--* La directiva *ngFor="let dpto of _departamentos" nos que se recorre la lista '_departamentos' que se carga
+          en el método ngOnInit() del del archivo reporte-desplazamiento-inventario.component.ts.
+          * [value]="dpto.id" => esto nos indica que el valor que será enviado al método setFilterDpto será el id del departamento.
+          Por medio de la interpolación {{dpto.descripcion}} se muestra la descripción del Departamento en el selector.
+          -->
+          <option *ngFor="let dpto of _departamentos" [value]="dpto.id">
+            {{dpto.descripcion}}
+          </option>
+        </select>
+        <!--fin del primer filtro -->
+      </div>
+      <div class="form-group">
+        <label for="subdepartamento"></label>
+        <select id="subdepartamento"
+                class="form-control"
+                #selectSubDpto (change)="setFilterSubDpto(selectSubDpto.value)"
+                name="idSubdepartamento">
+          <option disabled selected>SubDepartamento</option>
+          <option *ngFor="let subdpto of _sub_departamentos" [value]="subdpto.id">
+            {{subdpto.descripcion}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="clase"></label>
+        <select id="clase"
+                class="form-control"
+                #selectClase (change)="setFilterSubDpto(selectClase.value)"
+                name="idSubdepartamento">
+          <option disabled selected>Clases</option>
+          <option *ngFor="let subdpto of _sub_departamentos" [value]="subdpto.id">
+            {{subdpto.descripcion}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="subclase"></label>
+        <select id="subclase"
+                class="form-control"
+                #selectSubClase (change)="setFilterSubDpto(selectSubClase.value)"
+                name="idSubdepartamento">
+          <option disabled selected>SubClases</option>
+          <option *ngFor="let subdpto of _sub_departamentos" [value]="subdpto.id">
+            {{subdpto.descripcion}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="date" placeholder="'{{fechaSelect}}'" #inputFechaInicio
+               (change)="setFechainicio(inputFechaInicio.value)" id="inicio-date-input">
+        <label for="inicio-date-input">Fecha Inicio</label>
+      </div>
+      <div class="form-group">
+        <input class="form-control" placeholder="Fecha Fin" type="date" #inputFechaInicio
+               (change)="setFechainicio(inputFechaInicio.value)" id="fin-date-input">
+        <label for="fin-date-input">Fecha fin</label>
+      </div>
       <!--
-            Aqui empieza el formulario.
-
-            ¿Que significa cada cosa?
-
-            * [formGroup]="filterForm" => esto dice que en el archivo reporte-desplazamiento-inventario.component.ts
-            existe un objeto llamado filterForm y hace referencia a él.
-
-            * (ngSubmit)="onSubmit()" => Indica que cuando se presione el boton subbmit se ejecutara el método onSubmit()
-            que se encuentra dentro del archivo reporte-desplazamiento-inventario.component.ts
+      El boton nace deshabilitado, esto por que evalua la propiedad _canGenerateReport, al ser falsa el boton no funciona,
+      cuando se cumpla con las condiciones acordadas (en este caso se valida que ambos filtros tengan un valor),el elemento
+      canGenerateReport cambia su valor a true y el boton se activa.
+      Cuando el boton es presionado se ejecuta el método declarado en el (ngSubmit) del formulario.
       -->
-      <form [formGroup]="filterForm" (ngSubmit)="onSubmit()"
-            style="display: flex;flex-direction: row; justify-content: space-between;">
-        <div>
-          <!--primer filtro -->
-          <label for="departamento"></label>
-          <!--    Este es un selector con algunas propiedades Angular.
-              #selectDpto => Se le asgina un Id al selector #selectDpto,
-              (change)="setFilterDpto(selectDpto.value) => Se pone un listener que dice que cuando el selector reciba un valor
-              será ejecutado el mètodo setFilterDpto y se le envía el valor indicado selectDpto.value-->
-          <select
-            id="departamento"
-            class="form-control"
-            #selectDpto (change)="setFilterDpto(selectDpto.value)"
-            required>
-            <!--Opción por default que indica el contenido del filtro-->
-            <option disabled selected>Departamentos</option>
-            <!--* La directiva *ngFor="let dpto of _departamentos" nos que se recorre la lista '_departamentos' que se carga
-            en el método ngOnInit() del del archivo reporte-desplazamiento-inventario.component.ts.
-            * [value]="dpto.id" => esto nos indica que el valor que será enviado al método setFilterDpto será el id del departamento.
-            Por medio de la interpolación {{dpto.descripcion}} se muestra la descripción del Departamento en el selector.
-            -->
-            <option *ngFor="let dpto of _departamentos" [value]="dpto.id">
-              {{dpto.descripcion}}
-            </option>
-          </select>
-          <!--fin del primer filtro -->
-        </div>
-        <div>
-          <label for="subdepartamento"></label>
-          <select id="subdepartamento"
-                  class="form-control"
-                  #selectSubDpto (change)="setFilterSubDpto(selectSubDpto.value)"
-                  name="idSubdepartamento">
-            <option disabled selected>SubDepartamento</option>
-            <option *ngFor="let subdpto of _sub_departamentos" [value]="subdpto.id">
-              {{subdpto.descripcion}}
-            </option>
-          </select>
-        </div>
-        <!--       El boton nace deshabilitado, esto por que evalua la propiedad _canGenerateReport, al ser falsa el boton no funciona,
-               cuando se cumpla con las condiciones acordadas (en este caso se valida que ambos filtros tengan un valor),el elemento
-               _canGenerateReport cambia su valor a true y el boton se activa.
-               * Cuando el boton es presionado se ejecuta el método declarado en el (ngSubmit) del formulario.
-               -->
-        <button id="generar" type="submit" class="btn btn-default" [disabled]="!_canGenerateReport">Generar</button>
-      </form>
-    </div>
+      <button id="generar" type="submit" class="btn btn-default" [disabled]="!_canGenerateReport">Generar</button>
+    </form>
 
   </div>
-  <!--Tabla donde caen los registros de la tabla 'sellthrough' -->
-  <div class="row">
-    <table class="table">
-      <thead class="thead-inverse">
-      <tr>
-        <th class="text-center">Record ID</th>
-        <th class="text-center">Id Dpto</th>
-        <th class="text-center">Id SubDpto</th>
-      </tr>
-      </thead>
-      <tbody>
-      <!--
-      Si existen valores en el arreglo _sellthrough que se encuentra en el documento eporte-desplazamiento-inventario.component.ts estos serán mostrados
-      {{record.id }} => interpolación de las propiedades del objeto Sellthrough.ts
-      -->
-      <tr *ngFor="let record of _sellthrough ">
-        <td class="text-center" style="width: 15px;">{{record.id }}</td>
-        <td class="text-center" style="width: 15px;">{{record.idDepartamento}}</td>
-        <td class="text-center" style="width: 15px;">{{record.idSubdepartamento}}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+
 </div>
-<div>
+<!--Tabla donde caen los registros de la tabla 'sellthrough' -->
+<div class="row">
+  <table class="table">
+    <thead class="thead-inverse">
+    <tr>
+      <th class="text-center">Record Id</th>
+      <th class="text-center">dpto</th>
+      <th class="text-center">sub dpto</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--
+    Si existen valores en el arreglo _sellthrough que se encuentra en el documento eporte-desplazamiento-inventario.component.ts estos serán mostrados
+    {{record.id }} => interpolación de las propiedades del objeto Sellthrough.ts
+    -->
+    <tr *ngFor="let record of _sellthrough ">
+      <td class="text-center" style="width: 15px;">{{record.id }}</td>
+      <td class="text-center" style="width: 15px;">{{record.idDepartamento}}</td>
+      <td class="text-center" style="width: 15px;">{{record.idSubdepartamento}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="row">
   <app-desplazamiento-inventario-chart></app-desplazamiento-inventario-chart>
 </div>
-<div>
+<div class="row">
   <app-scatter-plot-chart></app-scatter-plot-chart>
 </div>
