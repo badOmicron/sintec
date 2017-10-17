@@ -9,20 +9,18 @@ package com.mx.root.sintec.controller;
 
 import java.util.List;
 
-import javax.websocket.server.PathParam;
-
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mx.root.sintec.model.Clase;
 import com.mx.root.sintec.model.Departamento;
-import com.mx.root.sintec.model.SubClase;
 import com.mx.root.sintec.model.SubDepartamento;
 import com.mx.root.sintec.service.ICatalogosService;
 
@@ -112,7 +110,7 @@ public class CatalogosController {
      * @see ResponseEntity
      */
     @GetMapping("/subdepartamentos/{departamento}")
-    ResponseEntity getSubDptos(@PathParam("departamentos") String departamentos) {
+    ResponseEntity getSubDptos(@PathVariable("departamento") String departamentos) {
         LOGGER.info("getDptos: ");
         try {
             final List<SubDepartamento> clases = catalogosService.findAllSubDepartamentosByDepto(departamentos);

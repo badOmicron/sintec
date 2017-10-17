@@ -22,7 +22,6 @@ import com.mx.root.sintec.config.WebConfig;
  * @since 1.0.0
  */
 @SpringBootApplication
-@EnableAutoConfiguration
 @Import(WebConfig.class)
 public class SintecApplication {
     public static void main(String[] args) {
