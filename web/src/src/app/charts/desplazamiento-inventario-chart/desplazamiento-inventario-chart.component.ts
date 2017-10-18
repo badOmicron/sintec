@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Chart} from "angular-highcharts";
+import {SintecTransportDataChartService} from "../../providers/sintec-transport-chart.service";
+import {Sellthrough} from "../../model/desplazamiento-inventario/Sellthrough";
 
 @Component({
   selector: 'app-desplazamiento-inventario-chart',
@@ -7,6 +9,8 @@ import {Chart} from "angular-highcharts";
   styleUrls: ['./desplazamiento-inventario-chart.component.css']
 })
 export class DesplazamientoInventarioChartComponent implements OnInit {
+  data: Sellthrough[] = [new Sellthrough];
+
 
   chart = new Chart({
     chart: {
@@ -20,20 +24,26 @@ export class DesplazamientoInventarioChartComponent implements OnInit {
     },
     series: [{
       name: 'Line 1',
-      data: [1, 2, 3]
+      data: [this.data]
     }]
   });
 
-  constructor() {
+  constructor(private sintecTransportDataServie: SintecTransportDataChartService) {
   }
 
   ngOnInit() {
-
+    this.sintecTransportDataServie.currentData.subscribe(data => this.addData(data));
   }
 
   // add point to chart serie
   add() {
     this.chart.addPoint(Math.floor(Math.random() * 10));
+  }
+
+  addData(data: any) {
+    console.log('recibiendo información');
+    console.log(data);
+    this.chart.addPoint(data);
   }
 
 }

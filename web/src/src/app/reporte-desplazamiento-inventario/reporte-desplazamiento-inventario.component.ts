@@ -15,9 +15,7 @@ import {SellthroughFilter} from "../model/desplazamiento-inventario/SellthroughF
 import {CatalogoService} from "../providers/catalogo.service";
 import {Clase} from "../model/Clase";
 import {SubClase} from "../model/SubClase";
-
-
-const now = new Date();
+import {SintecTransportDataChartService} from "../providers/sintec-transport-chart.service";
 
 /**
  * Componente base para el reporte Desplazamiento de Inventarios.
@@ -37,8 +35,6 @@ export class ReporteDesplazamientoInventarioComponent implements OnInit {
   _validFilter: boolean = false; // variable para validar si el filtro esta completo.
   _canGenerateReport = false; // variable que indica si es posible disparar el método que generá el reporte
   filterForm: FormGroup; // Formulario donde vienen todos los filtros.
-  fechaSelect: string;
-
 
   /**
    * Constructor del componente.
@@ -47,10 +43,9 @@ export class ReporteDesplazamientoInventarioComponent implements OnInit {
    */
   constructor(private desplazamientoService: DesplazamientoInventarioService, // se inyecta el servicio de desplazamiento
               private catalogoService: CatalogoService,
-              private fb: FormBuilder// se inyecta el FormBuilder
-  ) {
+              private sintecTransportDataServie: SintecTransportDataChartService,
+              private fb: FormBuilder) {
     console.log('ReporteDesplazamientoInventarioComponent Controller');
-
   }
 
   /**
@@ -102,7 +97,9 @@ export class ReporteDesplazamientoInventarioComponent implements OnInit {
       .subscribe(
         resultArray => this._sellthrough = resultArray,
         error => console.log("Error al generar el reporte :: " + error)
-      )
+      );
+    console.log('enviando data a la gráfica');
+    this.sintecTransportDataServie.sendData(this._sellthrough);
   }
 
   /**
