@@ -4,7 +4,6 @@
   ~      Date: Oct 15, 2017
   ~ Copyright: Root Technologies, S.A. de C.V. 2017
   -->
-
 <div class="container" style="padding-top: 5%">
 
   <div class="row container-fluid">
@@ -200,57 +199,66 @@
       -->
       <button id="generar" type="submit" class="btn btn-default" [disabled]="!_canGenerateReport">Generar</button>
     </form>
-
   </div>
+  <!--Tabla donde caen los registros de la tabla 'sellthrough' -->
+  <div class="row">
+    <table class="table table-hover" style="font-size: x-small;">
+      <thead class="thead-inverse">
+      <tr>
+        <th class="text-center">Record Id</th>
+        <th class="text-center">dpto</th>
+        <th class="text-center">sub dpto</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!--
+      Si existen valores en el arreglo _sellthrough que se encuentra en el documento eporte-desplazamiento-inventario.component.ts estos serán mostrados
+      {{record.id }} => interpolación de las propiedades del objeto Sellthrough.ts
+      -->
+      <tr *ngFor="let record of _sellthrough ">
+        <td class="text-center" style="width: 15px;">{{record.id }}</td>
+        <td class="text-center" style="width: 15px;">{{record.idDepartamento}}</td>
+        <td class="text-center" style="width: 15px;">{{record.departamento}}</td>
+        <td class="text-center" style="width: 15px;">{{record.idSubdepartamento}}</td>
+        <td class="text-center" style="width: 15px;">{{record.subdepartamento}}</td>
 
-</div>
-<!--Tabla donde caen los registros de la tabla 'sellthrough' -->
-<div class="row">
-  <table class="table">
-    <thead class="thead-inverse">
-    <tr>
-      <th class="text-center">Record Id</th>
-      <th class="text-center">dpto</th>
-      <th class="text-center">sub dpto</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!--
-    Si existen valores en el arreglo _sellthrough que se encuentra en el documento eporte-desplazamiento-inventario.component.ts estos serán mostrados
-    {{record.id }} => interpolación de las propiedades del objeto Sellthrough.ts
-    -->
-    <tr *ngFor="let record of _sellthrough ">
-      <td class="text-center" style="width: 15px;">{{record.id }}</td>
-      <td class="text-center" style="width: 15px;">{{record.idDepartamento}}</td>
-      <td class="text-center" style="width: 15px;">{{record.departamento}}</td>
-      <td class="text-center" style="width: 15px;">{{record.idSubdepartamento}}</td>
-      <td class="text-center" style="width: 15px;">{{record.subdepartamento}}</td>
+        <td class="text-center" style="width: 15px;">{{record.idClase}}</td>
+        <td class="text-center" style="width: 15px;">{{record.clase}}</td>
 
-      <td class="text-center" style="width: 15px;">{{record.idClase}}</td>
-      <td class="text-center" style="width: 15px;">{{record.clase}}</td>
+        <td class="text-center" style="width: 15px;">{{record.idSubclase}}</td>
+        <td class="text-center" style="width: 15px;">{{record.subclase}}</td>
 
-      <td class="text-center" style="width: 15px;">{{record.idSubclase}}</td>
-      <td class="text-center" style="width: 15px;">{{record.subclase}}</td>
+        <td class="text-center" style="width: 15px;">{{record.sku}}</td>
+        <td class="text-center" style="width: 15px;">{{record.descripcion || 'sin descripción'}}</td>
 
-      <td class="text-center" style="width: 15px;">{{record.sku}}</td>
-      <td class="text-center" style="width: 15px;">{{record.descripcion || 'sin descripción'}}</td>
+        <td class="text-center" style="width: 15px;">{{record.idTienda}}</td>
+        <td class="text-center" style="width: 15px;">{{record.tienda }}</td>
 
-      <td class="text-center" style="width: 15px;">{{record.idTienda}}</td>
-      <td class="text-center" style="width: 15px;">{{record.tienda }}</td>
+        <td class="text-center" style="width: 15px;">{{record.region}}</td>
+        <td class="text-center" style="width: 15px;">{{record.formato }}</td>
 
-      <td class="text-center" style="width: 15px;">{{record.region}}</td>
-      <td class="text-center" style="width: 15px;">{{record.formato }}</td>
+        <td class="text-center" style="width: 15px;">{{record.zona}}</td>
+        <td class="text-center" style="width: 15px;">{{record.vPiezas || 'sin valor' }}</td>
 
-      <td class="text-center" style="width: 15px;">{{record.zona}}</td>
-      <td class="text-center" style="width: 15px;">{{record.vPiezas || 'sin valor' }}</td>
+        <td class="text-center" style="width: 15px;">{{record.vPesos | number: '1.4-4' }}</td>
 
-      <td class="text-center" style="width: 15px;">{{record.vPesos}}</td>
+        <td class="text-center" style="width: 15px;">{{record.iPiezas}}</td>
+        <td class="text-center" style="width: 15px;">{{record.iPesos | number: '1.4-4' }}</td>
 
-    </tr>
-    </tbody>
-  </table>
-</div>
-<div class="row">
+        <td class="text-center" style="width: 15px;">{{record.rPiezas}}</td>
+        <td class="text-center" style="width: 15px;">{{record.rPesos }}</td>
+
+        <td class="text-center" style="width: 15px;">{{record.ifPiezas}}</td>
+        <td class="text-center" style="width: 15px;">{{record.ifPesos }}</td>
+
+        <td class="text-center" style="width: 15px;">{{record.objetivo}}</td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+  </div>
   <app-desplazamiento-inventario-chart></app-desplazamiento-inventario-chart>
 </div>
 <div class="row">
