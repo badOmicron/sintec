@@ -28,19 +28,19 @@ public class DesplazamientoInDTO {
     /**
      * Id del departamento.
      */
-    private Integer idDepartamento;
+    private String idDepartamento;
     /**
      * Id del sub departamento.
      */
-    private Integer idSubdepartamento;
+    private String idSubdepartamento;
 
-    private String clase;
+    private String idClase;
 
-    private String subClase;
+    private String idSubClase;
 
-    private LocalDate fechaInicio;
+    private String fechaInicio;
 
-    private LocalDate fechaFin;
+    private String fechaFin;
 
 
 }

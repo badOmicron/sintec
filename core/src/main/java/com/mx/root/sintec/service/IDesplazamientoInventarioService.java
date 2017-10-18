@@ -9,6 +9,7 @@ package com.mx.root.sintec.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 
 import com.mx.root.sintec.model.Departamento;
@@ -46,8 +47,10 @@ public interface IDesplazamientoInventarioService {
             Integer anio1,
             Integer semana2,
             Integer anio2,
-            String subClase,
-            Integer sku
+            String idDepto,
+            String idSubDepto,
+            String idClase,
+            String idSubClase
     ) throws DesplazamientoInventarioException;
 
 
@@ -59,5 +62,16 @@ public interface IDesplazamientoInventarioService {
      */
     List<SellthroughEntity> findByIdClaseAndAndDepartamentoAndSubdepartamento(int idDepartamento,
                                                                               int idSubDepartamento);
+
+    /**
+     *
+     * @param idDpto
+     * @param idSubDptom
+     * @param idClase
+     * @param idSubClase
+     * @param pageable
+     * @return
+     */
+    List<SellthroughEntity> findByIdDepartamentoAndIdSubdepartamentoAndIdClaseAndIdSubclase(int idDpto, int idSubDpto, int idClase, String idSubClase, Pageable pageable);
     
 }

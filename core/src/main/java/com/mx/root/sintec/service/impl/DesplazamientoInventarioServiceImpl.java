@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.mx.root.sintec.model.Departamento;
@@ -74,10 +75,10 @@ public class DesplazamientoInventarioServiceImpl implements IDesplazamientoInven
      * @param sku SKU.
      */
     @Override
-    public void consultaSellThrough(Integer semana1, Integer anio1, Integer semana2, Integer anio2, String subClase,
-                                    Integer sku) {
+    public void consultaSellThrough(Integer semana1, Integer anio1, Integer semana2, Integer anio2, String idDepto,
+                                    String idSubDepto, String idClase, String idSubClase) {
         LOGGER.info("consultaSellThrough: ");
-        desplazamientoInventarioRepository.consultaSellThrough(semana1, anio1, semana2, anio2, subClase, sku);
+        desplazamientoInventarioRepository.consultaSellThrough(semana1, anio1, semana2, anio2, idDepto, idSubDepto, idClase, idSubClase, 0);
     }
 
     /**
@@ -92,6 +93,20 @@ public class DesplazamientoInventarioServiceImpl implements IDesplazamientoInven
         LOGGER.info("findByIdClaseAndAndDepartamentoAndSubdepartamento: ");
         return desplazamientoInventarioRepository.findByIdDepartamentoAndIdSubdepartamentoLimit(idDepartamento,
                                                                                                 idSubDepartamento);
+    }
+
+    /**
+     * @param idDpto
+     * @param idSubDptom
+     * @param idClase
+     * @param idSubClase
+     * @param pageable
+     * @return
+     */
+    @Override
+    public List<SellthroughEntity> findByIdDepartamentoAndIdSubdepartamentoAndIdClaseAndIdSubclase(int idDpto, int idSubDptom, int idClase, String idSubClase, Pageable pageable) {
+        LOGGER.info("findByIdDepartamentoAndIdSubdepartamentoAndIdClaseAndIdSubclase: ");
+        return desplazamientoInventarioRepository.findByIdDepartamentoAndIdSubdepartamentoAndIdClaseAndIdSubclase(idDpto, idSubDptom, idClase, idSubClase, pageable);
     }
 
 }

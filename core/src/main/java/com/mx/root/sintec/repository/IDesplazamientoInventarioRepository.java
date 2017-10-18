@@ -17,9 +17,7 @@ import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mx.root.sintec.model.Departamento;
 import com.mx.root.sintec.model.SellthroughEntity;
-import com.mx.root.sintec.model.SubDepartamento;
 
 /**
  *  Clase encargada de obtener los datos. Es una abstracción de los mètodos básicos de persistencia.
@@ -39,14 +37,17 @@ public interface IDesplazamientoInventarioRepository extends JpaRepository<Sellt
      * @param subclase Subclase:
      * @param sku SKU.
      */
-    @Transactional(timeout = 10)
-    @Procedure(name = "SellthroughEntity.consulta_SellThrough")
+    @Transactional
+    @Procedure(procedureName = "consulta_SellThrough")
     void consultaSellThrough(
             @Param("Semana1") Integer semana1,
-            @Param("Año1") Integer anio1,
+            @Param("año1") Integer anio1,
             @Param("Semana2") Integer semana2,
             @Param("Año2") Integer anio2,
-            @Param("subclase") String subclase,
+            @Param("DEPTO") String depto,
+            @Param("SUBDEPTO") String subDepto,
+            @Param("CLASE") String clase,
+            @Param("SUBCLASE") String subClase,
             @Param("sku") Integer sku
     );
 
@@ -77,5 +78,14 @@ public interface IDesplazamientoInventarioRepository extends JpaRepository<Sellt
      */
     List<SellthroughEntity> findByIdDepartamentoAndIdSubdepartamento(int idDpto, int idSubDpto, Pageable pageRequest);
 
+    /**
+     *
+     * @param idDpto
+     * @param idSubDptom
+     * @param idClase
+     * @param idSubClase
+     * @return
+     */
+    List<SellthroughEntity> findByIdDepartamentoAndIdSubdepartamentoAndIdClaseAndIdSubclase(int idDpto, int idSubDptom, int idClase, String idSubClase, Pageable pageable);
 
 }
