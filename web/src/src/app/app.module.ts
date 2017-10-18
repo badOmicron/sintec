@@ -23,8 +23,9 @@ import {ChartModule, HIGHCHARTS_MODULES} from 'angular-highcharts';
 import {DesplazamientoInventarioChartComponent} from './charts/desplazamiento-inventario-chart/desplazamiento-inventario-chart.component';
 import {ScatterPlotChartComponent} from './charts/scatter-plot-chart/scatter-plot-chart.component';
 import exporting from 'highcharts/modules/exporting.src.js';
-import {DatePipe} from "@angular/common";
-import {NgbDatepickerModule, NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbDatepickerModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {HeatChartComponent} from './charts/heat-chart/heat-chart.component';
+import {AmChartsModule} from "@amcharts/amcharts3-angular";
 
 
 /**
@@ -39,8 +40,9 @@ import {NgbDatepickerModule, NgbModule} from "@ng-bootstrap/ng-bootstrap";
     AppRoutingModule, // Root Routing de la aplicación.
     HttpModule,     // Cliente para consumir Servicios REST.
     ChartModule,  // Charts
+    AmChartsModule,
     FormsModule, ReactiveFormsModule, //Modulos para formularios.
-    NgbModule.forRoot(),// Boostrap
+    NgbModule.forRoot(), // Boostrap
     NgbDatepickerModule.forRoot()
   ],
 // Se declaraon todos los Componentes que van a ser usados en la aplicación.
@@ -50,7 +52,8 @@ import {NgbDatepickerModule, NgbModule} from "@ng-bootstrap/ng-bootstrap";
     PageNotFoundComponent, // Componente para errores 404
     LineChartDemoComponent, // Componente demo para una gráfica.
     ReporteDesplazamientoInventarioComponent, // Componente principal para el reporte de Desplazamiento Inventario.
-    DesplazamientoInventarioChartComponent, ScatterPlotChartComponent
+    DesplazamientoInventarioChartComponent,
+    ScatterPlotChartComponent, HeatChartComponent
   ],
   /**
    *  Todos los servicios @Injtectables se declaran como providers. Se declaran en el módulo principal para que puedan ser
@@ -60,7 +63,10 @@ import {NgbDatepickerModule, NgbModule} from "@ng-bootstrap/ng-bootstrap";
     [
       DesplazamientoInventarioService, // Servicio para consumir los endpoints relacionados a Desplazamiento Inventario.
       FormControlDirective, FormGroupDirective, // Servicios requeridos para trabajar con Formularios, son core angular.
-      {provide: HIGHCHARTS_MODULES, useValue: [exporting]},
+      {
+        provide: HIGHCHARTS_MODULES,
+        useValue: [exporting]
+      },
     ],
   // Componentes que son inicializados al arrancar la aplicación. En este caso solo es necesario el AppComponent.
   // Esta Clase {AppComponent} se encuentra en el arvhico app.component.ts y usa el template HTML del archivo app.component.html.
