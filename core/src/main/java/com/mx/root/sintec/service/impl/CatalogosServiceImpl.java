@@ -10,7 +10,6 @@ package com.mx.root.sintec.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import com.mx.root.sintec.model.Clase;
@@ -42,6 +41,12 @@ public class CatalogosServiceImpl implements ICatalogosService {
     }
 
     @Override
+    public List<Clase> findDistinctByClaseByIAndIdDepartamentoAndIdSubdepartamento(int IdDpto, int idSubDpto) {
+        return iRelJerarquiaProductosRepository.findDistinctByClaseByIAndIdDepartamentoAndIdSubdepartamento(IdDpto,
+                                                                                                            idSubDpto);
+    }
+
+    @Override
     public List<SubClase> findAllSubClases() {
         return iRelJerarquiaProductosRepository.findDistinctBySubClase();
     }
@@ -62,12 +67,12 @@ public class CatalogosServiceImpl implements ICatalogosService {
     }
 
     @Override
-    public List<SubClase> findAllSubClaseByClase(String clase) {
-        return iRelJerarquiaProductosRepository.findAllSubClaseByClase(clase);
+    public List<SubClase> findAllSubClaseByClase(int idClase) {
+        return iRelJerarquiaProductosRepository.findAllSubClaseByClase(idClase);
     }
 
     @Override
-    public List<SubDepartamento> findAllSubDepartamentosByDepto(String departamento) {
+    public List<SubDepartamento> findAllSubDepartamentosByDepto(int departamento) {
         return iRelJerarquiaProductosRepository.findAllSubDepartamentosByDepartamento(departamento);
     }
 

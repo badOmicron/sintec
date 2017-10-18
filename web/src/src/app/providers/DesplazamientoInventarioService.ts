@@ -4,15 +4,12 @@
  *      Date: Oct 13, 2017
  * Copyright: Root Technologies, S.A. de C.V. 2017
  */
-
 import {Headers, Http, Response} from '@angular/http';
 import {Injectable} from "@angular/core";
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {Sellthrough} from "../model/desplazamiento-inventario/Sellthrough";
-import {Departamento} from "../model/Departamento";
-import {SubDepartamento} from "../model/SubDepartamento";
 import {SellthroughFilter} from "../model/desplazamiento-inventario/SellthroughFilter";
 
 
@@ -50,10 +47,7 @@ export class DesplazamientoInventarioService {
   private _host = "http://localhost:8080";
   // URI para generar el reporte
   private _getReport = this._host + "/desplazamiento/report";
-  // URI para obtener los departamentos
-  private _getDptos = this._host + "/desplazamiento/departamentos";
-  // URI para obtener los sub departamentos
-  private _getSubDptos = this._host + "/desplazamiento/subdepartamentos";
+
 
   /**
    * Consume el enpoint para generar el reporte.
@@ -71,31 +65,6 @@ export class DesplazamientoInventarioService {
       .catch(this.formatErrors);// se maneja el error.
   }
 
-  /**
-   * Obtiene los depatamentos.
-   * @returns {Observable<Departamento[]>} Una lista observable con los departamentos.
-   */
-  getDptos(): Observable<Departamento[]> {
-    return this.http
-      .get(this._getDptos,
-        {headers: this.setHeaders()}
-      )
-      .map((res: Response) => res.json())
-      .catch(this.formatErrors);
-  }
-
-  /**
-   * Se obtienen los Sub Departamentos.
-   * @returns {Observable<SubDepartamento[]>} Una lista observable con los sub departamentos.
-   */
-  getSubDptos(): Observable<SubDepartamento[]> {
-    return this.http
-      .get(this._getSubDptos,
-        {headers: this.setHeaders()}
-      )
-      .map((res: Response) => res.json())
-      .catch(this.formatErrors);
-  }
 
   /**
    * Se construyen los HEADERS para la petición HTTP:

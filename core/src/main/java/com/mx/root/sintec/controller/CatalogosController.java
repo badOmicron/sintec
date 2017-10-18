@@ -13,11 +13,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.mx.root.sintec.model.Clase;
 import com.mx.root.sintec.model.Departamento;
@@ -68,6 +64,22 @@ public class CatalogosController {
         }
     }
 
+    @GetMapping("/{idDpto}/{idSubDpto}/clases")
+    ResponseEntity getClasesByDptoAndSubDpto(@PathVariable("idDpto") int idDpto,
+                                             @PathVariable("idSubDpto") int idSubDpto) {
+        LOGGER.info("getClases : " + idDpto + " " + idSubDpto);
+        try {
+            final List<Clase> clases =
+                    catalogosService.findDistinctByClaseByIAndIdDepartamentoAndIdSubdepartamento(idDpto,
+                                                                                                 idSubDpto);
+            return ResponseEntity.ok(clases);
+        } catch (final Exception e) {
+            LOGGER.error(" message", e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
 
     /**
      * Enpoint para obtener todos los departamentos.
@@ -107,10 +119,10 @@ public class CatalogosController {
 
 
     @GetMapping("/subclases/{clase}")
-    ResponseEntity getSubClases(@PathVariable("clase") String clase) {
+    ResponseEntity getSubClases(@PathVariable("clase") int idClase) {
         LOGGER.info("getSubClases: ");
         try {
-            final List<SubClase> clases = catalogosService.findAllSubClaseByClase(clase);
+            final List<SubClase> clases = catalogosService.findAllSubClaseByClase(idClase);
             return ResponseEntity.ok(clases);
         } catch (final Exception e) {
             LOGGER.error(" message", e.getMessage());
@@ -125,10 +137,11 @@ public class CatalogosController {
      * @see ResponseEntity
      */
     @GetMapping("/subdepartamentos/{departamento}")
-    ResponseEntity getSubDptos(@PathVariable("departamento") String departamentos) {
+    ResponseEntity getSubDptos(@PathVariable("departamento") int departamentos) {
         LOGGER.info("getDptos: ");
         try {
-            final List<SubDepartamento> subDepartamentos = catalogosService.findAllSubDepartamentosByDepto(departamentos);
+            final List<SubDepartamento> subDepartamentos = catalogosService.findAllSubDepartamentosByDepto(
+                    departamentos);
             return ResponseEntity.ok(subDepartamentos);
         } catch (final Exception e) {
             LOGGER.error(" message", e.getMessage());

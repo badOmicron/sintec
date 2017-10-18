@@ -25,6 +25,8 @@ public interface ICatalogosService {
 
     List<Clase> findAllClases();
 
+    List<Clase> findDistinctByClaseByIAndIdDepartamentoAndIdSubdepartamento(int IdDpto, int idSubDpto);
+
     List<SubClase> findAllSubClases();
 
     List<SubClase> findAllSubClasesByClase();
@@ -33,7 +35,7 @@ public interface ICatalogosService {
 
     List<SubDepartamento> findAllSubDepartamentos();
 
-    List<SubClase> findAllSubClaseByClase(String clase);
+    List<SubClase> findAllSubClaseByClase(int clase);
 
-    List<SubDepartamento> findAllSubDepartamentosByDepto(String departamento);
+    List<SubDepartamento> findAllSubDepartamentosByDepto(int departamento);
 }
