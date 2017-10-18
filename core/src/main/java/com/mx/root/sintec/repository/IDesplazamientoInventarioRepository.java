@@ -34,7 +34,7 @@ public interface IDesplazamientoInventarioRepository extends JpaRepository<Sellt
      * @param anio1 a&#241;o de fecha inicio.
      * @param semana2 Semana de fecha fin.
      * @param anio2 a&#241;o de fecha inicio.
-     * @param subclase Subclase:
+     * @param subClase Subclase:
      * @param sku SKU.
      */
     @Transactional
@@ -86,6 +86,9 @@ public interface IDesplazamientoInventarioRepository extends JpaRepository<Sellt
      * @param idSubClase
      * @return
      */
-    List<SellthroughEntity> findByIdDepartamentoAndIdSubdepartamentoAndIdClaseAndIdSubclase(int idDpto, int idSubDptom, int idClase, String idSubClase, Pageable pageable);
+    List<SellthroughEntity> findByIdDepartamentoAndIdSubdepartamentoAndIdClaseAndIdSubclase(int idDpto, int idSubDptom,
+                                                                                            int idClase,
+                                                                                            String idSubClase,
+                                                                                            Pageable pageable);
 
 }

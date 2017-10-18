@@ -10,9 +10,7 @@ package com.mx.root.sintec.controller;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,17 +69,21 @@ public class DesplazamientoInventarioController {
      */
     @PostMapping("/report")
     ResponseEntity getReport(@RequestBody DesplazamientoInDTO desplazamientoInDTO, Pageable pageable) {
-        LOGGER.info("getReport: ");
+        LOGGER.info("getReport: " + desplazamientoInDTO.toString());
         try {
-            int idDpto        = Integer.valueOf(desplazamientoInDTO.getIdDepartamento());
-            int idSubDpto     = Integer.valueOf(desplazamientoInDTO.getIdSubdepartamento());
-            int idClase       = Integer.valueOf(desplazamientoInDTO.getIdClase());
-            String idSubClase = desplazamientoInDTO.getIdSubClase();
+            int idDpto = Integer.valueOf(Optional.ofNullable(desplazamientoInDTO.getIdDepartamento()).orElse("0"));
+            int idSubDpto = Integer.valueOf(
+                    Optional.ofNullable(desplazamientoInDTO.getIdSubdepartamento()).orElse("0"));
+            int idClase = Integer.valueOf(Optional.ofNullable(desplazamientoInDTO.getIdClase()).orElse("0"));
+            String idSubClase = Optional.ofNullable(desplazamientoInDTO.getIdSubClase()).orElse("0");
             final List<SellthroughEntity> sellthroughEntityRecords =
-                    desplazamientoInventarioService.findByIdDepartamentoAndIdSubdepartamentoAndIdClaseAndIdSubclase(idDpto, idSubDpto, idClase, idSubClase, pageable);
+                    desplazamientoInventarioService.findByIdDepartamentoAndIdSubdepartamentoAndIdClaseAndIdSubclase(
+                            idDpto, idSubDpto, idClase, idSubClase, pageable);
+            LOGGER.info("getReport: " + sellthroughEntityRecords.toArray().toString());
             return ResponseEntity.ok(sellthroughEntityRecords);
         } catch (final Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
@@ -92,7 +94,7 @@ public class DesplazamientoInventarioController {
      */
     @PostMapping("/exec")
     ResponseEntity exploteProcedure(@RequestBody DesplazamientoInDTO desplazamientoInDTO) {
-        LOGGER.info("exploteProcedure: ");
+        LOGGER.info("exploteProcedure: " + desplazamientoInDTO);
         try {
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date date = dateFormat.parse(desplazamientoInDTO.getFechaInicio());
@@ -105,7 +107,9 @@ public class DesplazamientoInventarioController {
             int week_fin = cal.get(Calendar.WEEK_OF_YEAR);
             int year_fin = cal.get(Calendar.YEAR);
             desplazamientoInventarioService.consultaSellThrough(
-                    week_ini, year_ini, week_fin, year_fin, desplazamientoInDTO.getIdDepartamento(), desplazamientoInDTO.getIdSubdepartamento(), desplazamientoInDTO.getIdClase(), desplazamientoInDTO.getIdSubClase());
+                    week_ini, year_ini, week_fin, year_fin, desplazamientoInDTO.getIdDepartamento(),
+                    desplazamientoInDTO.getIdSubdepartamento(), desplazamientoInDTO.getIdClase(),
+                    desplazamientoInDTO.getIdSubClase());
             return ResponseEntity.ok(null);
         } catch (final DesplazamientoInventarioException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);

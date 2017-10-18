@@ -42,5 +42,15 @@ public class DesplazamientoInDTO {
 
     private String fechaFin;
 
-
+    @Override
+    public String toString() {
+        return "DesplazamientoInDTO{" +
+                "idDepartamento='" + idDepartamento + '\'' +
+                ", idSubdepartamento='" + idSubdepartamento + '\'' +
+                ", idClase='" + idClase + '\'' +
+                ", idSubClase='" + idSubClase + '\'' +
+                ", fechaInicio='" + fechaInicio + '\'' +
+                ", fechaFin='" + fechaFin + '\'' +
+                '}';
+    }
 }

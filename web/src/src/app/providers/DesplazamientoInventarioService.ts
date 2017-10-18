@@ -57,7 +57,7 @@ export class DesplazamientoInventarioService {
   getReport(filter: SellthroughFilter): Observable<Sellthrough[]> {
     return this.http
       .post(
-        this._getReport, // esta es la URL http://localhost:8080/desplazamiento/report
+        this._getReport + '?page=0&size=30', // esta es la URL http://localhost:8080/desplazamiento/report
         filter, // se envìa el objeto con los parámetros dentro del body {}
         {headers: this.setHeaders()} // se asignan los cabeceros correspondientes.
       )

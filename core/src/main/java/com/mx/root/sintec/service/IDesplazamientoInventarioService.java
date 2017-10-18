@@ -10,11 +10,8 @@ package com.mx.root.sintec.service;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
 
-import com.mx.root.sintec.model.Departamento;
 import com.mx.root.sintec.model.SellthroughEntity;
-import com.mx.root.sintec.model.SubDepartamento;
 import com.mx.root.sintec.service.exception.DesplazamientoInventarioException;
 
 /**
@@ -66,12 +63,15 @@ public interface IDesplazamientoInventarioService {
     /**
      *
      * @param idDpto
-     * @param idSubDptom
+     * @param idSubDpto
      * @param idClase
      * @param idSubClase
      * @param pageable
      * @return
      */
-    List<SellthroughEntity> findByIdDepartamentoAndIdSubdepartamentoAndIdClaseAndIdSubclase(int idDpto, int idSubDpto, int idClase, String idSubClase, Pageable pageable);
-    
+    List<SellthroughEntity> findByIdDepartamentoAndIdSubdepartamentoAndIdClaseAndIdSubclase(int idDpto, int idSubDpto,
+                                                                                            int idClase,
+                                                                                            String idSubClase,
+                                                                                            Pageable pageable);
+
 }

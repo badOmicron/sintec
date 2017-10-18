@@ -9,7 +9,7 @@ import {Sellthrough} from "../../model/desplazamiento-inventario/Sellthrough";
   styleUrls: ['./desplazamiento-inventario-chart.component.css']
 })
 export class DesplazamientoInventarioChartComponent implements OnInit {
-  data: Sellthrough[] = [new Sellthrough];
+  registrosSellthough: Sellthrough[] = [new Sellthrough];
 
 
   chart = new Chart({
@@ -17,14 +17,14 @@ export class DesplazamientoInventarioChartComponent implements OnInit {
       type: 'line'
     },
     title: {
-      text: 'Linechart'
+      text: 'Desplazamiento de inventarios'
     },
     credits: {
       enabled: false
     },
     series: [{
-      name: 'Line 1',
-      data: [this.data]
+      name: 'SKU',
+      data: [0]
     }]
   });
 
@@ -43,7 +43,8 @@ export class DesplazamientoInventarioChartComponent implements OnInit {
   addData(data: any) {
     console.log('recibiendo información');
     console.log(data);
-    this.chart.addPoint(data);
+    console.log(this.registrosSellthough.length);
+    this.chart.addPoint(this.registrosSellthough.length);
   }
 
 }

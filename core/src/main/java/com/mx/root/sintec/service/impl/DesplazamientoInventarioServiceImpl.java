@@ -14,9 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.mx.root.sintec.model.Departamento;
 import com.mx.root.sintec.model.SellthroughEntity;
-import com.mx.root.sintec.model.SubDepartamento;
 import com.mx.root.sintec.repository.IDesplazamientoInventarioRepository;
 import com.mx.root.sintec.service.IDesplazamientoInventarioService;
 import com.mx.root.sintec.service.exception.DesplazamientoInventarioException;
@@ -78,7 +76,8 @@ public class DesplazamientoInventarioServiceImpl implements IDesplazamientoInven
     public void consultaSellThrough(Integer semana1, Integer anio1, Integer semana2, Integer anio2, String idDepto,
                                     String idSubDepto, String idClase, String idSubClase) {
         LOGGER.info("consultaSellThrough: ");
-        desplazamientoInventarioRepository.consultaSellThrough(semana1, anio1, semana2, anio2, idDepto, idSubDepto, idClase, idSubClase, 0);
+        desplazamientoInventarioRepository.consultaSellThrough(semana1, anio1, semana2, anio2, idDepto, idSubDepto,
+                                                               idClase, idSubClase, 0);
     }
 
     /**
@@ -104,9 +103,14 @@ public class DesplazamientoInventarioServiceImpl implements IDesplazamientoInven
      * @return
      */
     @Override
-    public List<SellthroughEntity> findByIdDepartamentoAndIdSubdepartamentoAndIdClaseAndIdSubclase(int idDpto, int idSubDptom, int idClase, String idSubClase, Pageable pageable) {
+    public List<SellthroughEntity> findByIdDepartamentoAndIdSubdepartamentoAndIdClaseAndIdSubclase(int idDpto,
+                                                                                                   int idSubDptom,
+                                                                                                   int idClase,
+                                                                                                   String idSubClase,
+                                                                                                   Pageable pageable) {
         LOGGER.info("findByIdDepartamentoAndIdSubdepartamentoAndIdClaseAndIdSubclase: ");
-        return desplazamientoInventarioRepository.findByIdDepartamentoAndIdSubdepartamentoAndIdClaseAndIdSubclase(idDpto, idSubDptom, idClase, idSubClase, pageable);
+        return desplazamientoInventarioRepository.findByIdDepartamentoAndIdSubdepartamentoAndIdClaseAndIdSubclase(
+                idDpto, idSubDptom, idClase, idSubClase, pageable);
     }
 
 }

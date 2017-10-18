@@ -35,5 +35,4 @@ export class SellthroughFilter {
   public idSubClase: number;
   public fechaInicio: Date;
   public fechaFin: Date;
-
 }
