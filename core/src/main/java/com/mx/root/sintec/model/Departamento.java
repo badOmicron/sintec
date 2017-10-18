@@ -20,7 +20,7 @@ import com.mx.root.sintec.model.dto.AbstractCatalogo;
  * @since 1.0.0
  */
 public class Departamento extends AbstractCatalogo {
-    
+
     public Departamento(int id, String descripcion) {
         super(id, descripcion);
     }

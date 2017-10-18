@@ -12,7 +12,9 @@ import {Departamento} from "../model/Departamento";
 import {SubDepartamento} from "../model/SubDepartamento";
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SellthroughFilter} from "../model/desplazamiento-inventario/SellthroughFilter";
-import {DatePipe} from "@angular/common";
+import {CatalogoService} from "../providers/catalogo.service";
+import {Clase} from "../model/Clase";
+import {SubClase} from "../model/SubClase";
 
 
 const now = new Date();
@@ -28,6 +30,8 @@ const now = new Date();
 export class ReporteDesplazamientoInventarioComponent implements OnInit {
   _sellthrough: Sellthrough[]; // arreglo de registros de la tabla sellthrough
   _departamentos: Departamento[]; // arreglo de departamentos
+  _clases: Clase[]; // arreglo de clase
+  _subclases: SubClase[]; // arreglo de subclase
   _sub_departamentos: SubDepartamento[]; // arreglo de sub departamentos
   _sellthroughFilter: SellthroughFilter = new SellthroughFilter(); // objeto que contiene todos los campos filtro
   _validFilter: boolean = false; // variable para validar si el filtro esta completo.
@@ -41,12 +45,12 @@ export class ReporteDesplazamientoInventarioComponent implements OnInit {
    * @param {DesplazamientoInventarioService} desplazamientoService Servicio para explotar los endpoints del Reporte Desplazamiento de Inventario.
    * @param {FormBuilder} fb Objeto agular que nos ayuda  a crear el formulario de angular.
    */
-  constructor(private desplazamientoService: DesplazamientoInventarioService, // se inyecta el servicio
+  constructor(private desplazamientoService: DesplazamientoInventarioService, // se inyecta el servicio de desplazamiento
+              private catalogoService: CatalogoService,
               private fb: FormBuilder// se inyecta el FormBuilder
   ) {
     console.log('ReporteDesplazamientoInventarioComponent Controller');
-    this.fechaSelect = new DatePipe('en-US').transform(new Date(), 'dd/MM/yyyy');
-    console.log(this.fechaSelect);
+
   }
 
   /**
@@ -59,7 +63,8 @@ export class ReporteDesplazamientoInventarioComponent implements OnInit {
     //  en este caso ejecutamos el método para construir el formulario.
     this.buildForm();
     //  y ejecutamos el método que nos carga nuestro primer set de filtros.
-    this.getFilters();
+    this.getInitFilters();
+    this.getReport();
   }
 
   /**
@@ -78,21 +83,14 @@ export class ReporteDesplazamientoInventarioComponent implements OnInit {
   /**
    * Se consumen los endpoints para obtener los catálogos.
    */
-  getFilters() {
+  getInitFilters() {
     console.log('ReporteDesplazamientoInventarioComponent Obteniendo Filtros');
     // Se obtienen los departamentos.
-    this.desplazamientoService.getDptos()
+    this.catalogoService.getDptos()
       .subscribe(
         resultArray => this._departamentos = resultArray,
         error => console.log("Error al obtener los departamentos :: " + error)
       );
-    // Se obtienen los sub departamentos.
-    this.desplazamientoService.getSubDptos()
-      .subscribe(
-        resultArray => this._sub_departamentos = resultArray,
-        error => console.log("Error al obtener los sub departamentos :: " + error)
-      );
-
   }
 
   /**
@@ -120,31 +118,56 @@ export class ReporteDesplazamientoInventarioComponent implements OnInit {
    * @param idDpto
    */
   setFilterDpto(idDpto: any): void {
-    console.log('setFilterDpto');
     console.log(idDpto);
-// Se le asigna el valor del id departamento al objeto que contiene todos los filtros.
+    // Se le asigna el valor del id departamento al objeto que contiene todos los filtros.
     this._sellthroughFilter.idDepartamento = idDpto;
-// se valida si los filtros estan completos.
+    this.catalogoService.getSubDptos(idDpto).subscribe(
+      resultArray => this._sub_departamentos = resultArray,
+      error => console.log("Error al obtener los departamentos :: " + error)
+    );
+    // se valida si los filtros estan completos.
     this.validateFilters();
   }
 
   setFilterSubDpto(idSubDpto: any): void {
-    console.log('setFilterSubDpto');
     console.log(idSubDpto);
-// Se le asigna el valor del id subdepartamento al objeto que contiene todos los filtros.
+    // Se le asigna el valor del id subdepartamento al objeto que contiene todos los filtros.
     this._sellthroughFilter.idSubdepartamento = idSubDpto;
-// se valida si los filtros estan completos.
+    this.catalogoService.getClasesByDptoAndSubDpto(this._sellthroughFilter.idDepartamento,
+      this._sellthroughFilter.idSubdepartamento).subscribe(
+      resultArray => this._clases = resultArray,
+      error => console.log("Error al obtener las clases :: " + error)
+    );
+    // se valida si los filtros estan completos.
+    this.validateFilters();
+  }
+
+  setClases(idClase: any) {
+    console.log('Selecionando clase ' + idClase);
+    this._sellthroughFilter.idClase = idClase;
+    this.catalogoService.getSubClase(idClase).subscribe(
+      resultArray => this._subclases = resultArray,
+      error => console.log("Error al obtener las sub clases :: " + error)
+    );
+    this.validateFilters();
+  }
+
+  setSubClases(idSubClase: any) {
+    this._sellthroughFilter.idSubClase = idSubClase;
+    console.log('fin de los primero filtroas ' + idSubClase);
     this.validateFilters();
   }
 
   setFechainicio(fechaInicio: any) {
     console.log(fechaInicio);
     this._sellthroughFilter.fechaInicio = new Date(fechaInicio);
+    this.validateFilters();
   }
 
   setFechaFin(fechaFin: any) {
     console.log(fechaFin);
     this._sellthroughFilter.fechaFin = new Date(fechaFin);
+    this.validateFilters();
   }
 
   /**
@@ -152,7 +175,7 @@ export class ReporteDesplazamientoInventarioComponent implements OnInit {
    */
   validateFilters() {
     console.log('validateFilters');
-    if (this.isValid()) {
+    if (this.isFiltersValid()) {
       // Si los filtros estan completos se habilita el boton para generar el reporte.
       this._canGenerateReport = true;
     }
@@ -162,9 +185,11 @@ export class ReporteDesplazamientoInventarioComponent implements OnInit {
    * Validamos todos los campos del filtro. Si todos los campos del filtro estan completos se retorna un true.
    * @returns {boolean}
    */
-  isValid(): boolean {
+  isFiltersValid(): boolean {
     this._validFilter = !!this._sellthroughFilter.idDepartamento;
     this._validFilter = !!this._sellthroughFilter.idSubdepartamento;
+    this._validFilter = !!this._sellthroughFilter.idClase;
+    this._validFilter = !!this._sellthroughFilter.idSubClase;
     return this._validFilter;
   }
 

@@ -26,6 +26,7 @@ import exporting from 'highcharts/modules/exporting.src.js';
 import {NgbDatepickerModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HeatChartComponent} from './charts/heat-chart/heat-chart.component';
 import {AmChartsModule} from "@amcharts/amcharts3-angular";
+import {CatalogoService} from "./providers/catalogo.service";
 
 
 /**
@@ -62,6 +63,7 @@ import {AmChartsModule} from "@amcharts/amcharts3-angular";
   providers:
     [
       DesplazamientoInventarioService, // Servicio para consumir los endpoints relacionados a Desplazamiento Inventario.
+      CatalogoService,
       FormControlDirective, FormGroupDirective, // Servicios requeridos para trabajar con Formularios, son core angular.
       {
         provide: HIGHCHARTS_MODULES,
