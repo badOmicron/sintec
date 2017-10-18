@@ -25,11 +25,11 @@ import com.mx.root.sintec.model.*;
  */
 public interface ICatalogoRepository extends JpaRepository<RelJerarquiaProductosEntity, Integer> {
 
-    @Query(value = "select distinct new com.mx.root.sintec.model.Clase(r.idSubdepartamento,r.subdepartamento) from RelJerarquiaProductosEntity r")
+    @Query(value = "select distinct new com.mx.root.sintec.model.Clase(r.idClase,r.clase) from RelJerarquiaProductosEntity r")
     List<Clase> findDistinctByClase();
 
 
-    @Query(value = "select distinct new com.mx.root.sintec.model.SubClase(r.idSubdepartamento,r.subdepartamento) from RelJerarquiaProductosEntity r")
+    @Query(value = "select distinct new com.mx.root.sintec.model.SubClase(r.idSubclase,r.subclase) from RelJerarquiaProductosEntity r")
     List<SubClase> findDistinctBySubClase();
 
     /**
@@ -47,6 +47,14 @@ public interface ICatalogoRepository extends JpaRepository<RelJerarquiaProductos
      */
     @Query(value = "select distinct new com.mx.root.sintec.model.SubDepartamento(s.idSubdepartamento,s.subdepartamento) from RelJerarquiaProductosEntity s")
     List<SubDepartamento> findAllSubDepartamentos();
+
+    /**
+     *
+     * @param clase
+     * @return
+     */
+    @Query(value = "select distinct new com.mx.root.sintec.model.SubClase(s.idSubclase, s.subclase) from RelJerarquiaProductosEntity s where s.clase = :clase")
+    List<SubClase> findAllSubClaseByClase(@Param("clase") String clase);
 
     /**
      * Obtiene todos los {@link SubDepartamento}s que existen en la tabla  {@link RelJerarquiaProductosEntity}.

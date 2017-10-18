@@ -62,6 +62,11 @@ public class CatalogosServiceImpl implements ICatalogosService {
     }
 
     @Override
+    public List<SubClase> findAllSubClaseByClase(String clase) {
+        return iRelJerarquiaProductosRepository.findAllSubClaseByClase(clase);
+    }
+
+    @Override
     public List<SubDepartamento> findAllSubDepartamentosByDepto(String departamento) {
         return iRelJerarquiaProductosRepository.findAllSubDepartamentosByDepartamento(departamento);
     }

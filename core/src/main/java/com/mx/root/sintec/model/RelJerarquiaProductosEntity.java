@@ -27,7 +27,7 @@ public class RelJerarquiaProductosEntity {
     private int idClase;
     private String clase;
     private int idLlave;
-    private String idSubclase;
+    private int idSubclase;
     private String subclase;
     private String familia;
     private String familiaDescripcion;
@@ -184,7 +184,7 @@ public class RelJerarquiaProductosEntity {
      **/
     @Basic
     @Column(name = "id_subclase", nullable = false, length = 255)
-    public String getIdSubclase() {
+    public int getIdSubclase() {
         return idSubclase;
     }
 
@@ -192,7 +192,7 @@ public class RelJerarquiaProductosEntity {
      * Setter for idSubclase.
      * @param idSubclase expected.
      **/
-    public void setIdSubclase(String idSubclase) {
+    public void setIdSubclase(int idSubclase) {
         this.idSubclase = idSubclase;
     }
 
@@ -298,11 +298,11 @@ public class RelJerarquiaProductosEntity {
         if (idSubdepartamento != that.idSubdepartamento) return false;
         if (idClase != that.idClase) return false;
         if (idLlave != that.idLlave) return false;
+        if (idSubclase != that.idSubclase ) return false;
         if (departamento != null ? !departamento.equals(that.departamento) : that.departamento != null) return false;
         if (subdepartamento != null ? !subdepartamento.equals(that.subdepartamento) : that.subdepartamento != null)
             return false;
         if (clase != null ? !clase.equals(that.clase) : that.clase != null) return false;
-        if (idSubclase != null ? !idSubclase.equals(that.idSubclase) : that.idSubclase != null) return false;
         if (subclase != null ? !subclase.equals(that.subclase) : that.subclase != null) return false;
         if (familia != null ? !familia.equals(that.familia) : that.familia != null) return false;
         if (familiaDescripcion != null ? !familiaDescripcion.equals(
@@ -324,7 +324,7 @@ public class RelJerarquiaProductosEntity {
         result = 31 * result + idClase;
         result = 31 * result + (clase != null ? clase.hashCode() : 0);
         result = 31 * result + idLlave;
-        result = 31 * result + (idSubclase != null ? idSubclase.hashCode() : 0);
+        result = 31 * result + idSubclase;
         result = 31 * result + (subclase != null ? subclase.hashCode() : 0);
         result = 31 * result + (familia != null ? familia.hashCode() : 0);
         result = 31 * result + (familiaDescripcion != null ? familiaDescripcion.hashCode() : 0);

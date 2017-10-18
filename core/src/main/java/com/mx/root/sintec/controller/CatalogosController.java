@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mx.root.sintec.model.Clase;
 import com.mx.root.sintec.model.Departamento;
+import com.mx.root.sintec.model.SubClase;
 import com.mx.root.sintec.model.SubDepartamento;
 import com.mx.root.sintec.service.ICatalogosService;
 
@@ -104,6 +105,20 @@ public class CatalogosController {
         }
     }
 
+
+    @GetMapping("/subclases/{clase}")
+    ResponseEntity getSubClases(@PathVariable("clase") String clase) {
+        LOGGER.info("getSubClases: ");
+        try {
+            final List<SubClase> clases = catalogosService.findAllSubClaseByClase(clase);
+            return ResponseEntity.ok(clases);
+        } catch (final Exception e) {
+            LOGGER.error(" message", e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
     /**
      * Enpoint para obtener todos los sub departamentos.
      * @return Una respuesa HTTP.
@@ -113,8 +128,8 @@ public class CatalogosController {
     ResponseEntity getSubDptos(@PathVariable("departamento") String departamentos) {
         LOGGER.info("getDptos: ");
         try {
-            final List<SubDepartamento> clases = catalogosService.findAllSubDepartamentosByDepto(departamentos);
-            return ResponseEntity.ok(clases);
+            final List<SubDepartamento> subDepartamentos = catalogosService.findAllSubDepartamentosByDepto(departamentos);
+            return ResponseEntity.ok(subDepartamentos);
         } catch (final Exception e) {
             LOGGER.error(" message", e.getMessage());
             e.printStackTrace();
