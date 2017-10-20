@@ -10,7 +10,13 @@ package com.mx.root.sintec;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.DispatcherServletAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.web.servlet.DispatcherServlet;
 
 import com.mx.root.sintec.config.WebConfig;
 
@@ -23,7 +29,17 @@ import com.mx.root.sintec.config.WebConfig;
  */
 @SpringBootApplication
 @Import(WebConfig.class)
-public class SintecApplication {
+public class SintecApplication extends SpringBootServletInitializer {
+    @Bean
+    public ServletRegistrationBean dispatcherServletRegistration(DispatcherServlet dispatcherServlet) {
+        ServletRegistrationBean registration = new ServletRegistrationBean(dispatcherServlet, "/api/*");
+        registration.setName(DispatcherServletAutoConfiguration.DEFAULT_DISPATCHER_SERVLET_REGISTRATION_BEAN_NAME);
+        return registration;
+    }
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(SintecApplication.class);
+    }
     public static void main(String[] args) {
         SpringApplication.run(SintecApplication.class, args);
     }

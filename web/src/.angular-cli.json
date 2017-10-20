@@ -6,7 +6,7 @@
   "apps": [
     {
       "root": "src",
-      "outDir": "../../core/src/main/resources/static/",
+      "outDir": "../../core/src/main/webapp/",
       "assets": [
         "assets",
         "favicon.ico",
