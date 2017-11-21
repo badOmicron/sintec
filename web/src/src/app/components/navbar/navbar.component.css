@@ -1,0 +1,9 @@
+ul {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+#navbarSupportedContent {
+  width: 70%;
+}
